@@ -135,15 +135,17 @@ prompt_pure_preprompt_render() {
 	# Add Git branch and dirty status info.
 	typeset -gA prompt_pure_vcs_info
 	if [[ -n $prompt_pure_vcs_info[branch] ]]; then
-		local branch="%F{$git_color}"'${prompt_pure_vcs_info[branch]}'
+		local branch="%K{085}%F{$git_color}""%F{232}"'  ${prompt_pure_vcs_info[branch]} '
 		if [[ -n $prompt_pure_vcs_info[action] ]]; then
 			branch+="|%F{$prompt_pure_colors[git:action]}"'$prompt_pure_vcs_info[action]'"%F{$git_color}"
 		fi
 		preprompt_parts+=("$branch""%F{$git_dirty_color}"'${prompt_pure_git_dirty}%f')
 	fi
-	# Git pull/push arrows.
+
 	if [[ -n $prompt_pure_git_arrows ]]; then
-		preprompt_parts+=('%F{$prompt_pure_colors[git:arrow]}${prompt_pure_git_arrows}%f')
+		preprompt_parts+=('%K{default}%F{$prompt_pure_colors[git:arrow]} ${prompt_pure_git_arrows} %k%f'"%F{085}"'%k▌%f')
+		else
+		preprompt_parts+=('%k')
 	fi
 
 	# Username and machine, if applicable.
@@ -698,10 +700,10 @@ prompt_pure_setup() {
 	prompt_pure_colors_default=(
 		execution_time       yellow
 		git:arrow            cyan
-		git:branch           242
+		git:branch           232
 		git:branch:cached    red
 		git:action           242
-		git:dirty            218
+		git:dirty            205
 		host                 242
 		path                 blue
 		prompt:error         red
